@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-22T22:42:26.294Z",
+        "reason": "Claude verified in rendered screenshots: hero, process, proof and pilot rows use clamp()/var() padding the static scan cannot resolve (3 to 8rem inset)"
+      }
+    ]
+  }
+}

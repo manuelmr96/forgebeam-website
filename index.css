@@ -110,7 +110,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   content: ""; position: absolute; inset: -40% auto -40% -30%; width: 45%;
   background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
   transform: rotate(14deg) translateX(-120%);
-  animation: beam 9s var(--ease-out) 1.4s infinite;
+  animation: beam 9s var(--ease-out) 1.4s 3;
   z-index: -1; pointer-events: none;
 }
 @keyframes beam {
@@ -205,7 +205,7 @@ section { scroll-margin-top: 5rem; }
   transition: transform 450ms var(--ease-out);
 }
 .pilot:hover::before, .pilot:focus-visible::before { transform: scaleY(1); }
-.pilot:focus-visible { box-shadow: inset 3px 0 0 var(--olive); }
+.pilot:focus-visible { outline: 2px solid var(--olive); outline-offset: -2px; }
 .pilot__pain { font-family: var(--display); font-size: var(--step-1); line-height: 1.35; color: var(--olive); font-style: italic; max-width: 26rem; }
 .pilot__body h3 { font-size: var(--step-1); font-weight: 700; line-height: 1.2; }
 .pilot__body p { margin-top: 0.6rem; max-width: 38rem; }
