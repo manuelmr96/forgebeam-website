@@ -154,6 +154,47 @@
     else if (started) play(tabs.find((t) => t.getAttribute('aria-selected') === 'true').dataset.scene)
   })
 
+  // System map: modules connect, then the status bar walks through a project.
+  const map = document.querySelector('.map')
+  const label = document.querySelector('[data-map-label]')
+  const bar = document.querySelector('[data-map-bar]')
+  const phases = [
+    'Migrando el sistema anterior a la nube',
+    'Conectando ventas, inventario y facturación',
+    'Publicando la app en iOS y Android',
+    'Sistema en producción',
+  ]
+  if (map) {
+    if (reduce) {
+      map.classList.add('is-on')
+      label.textContent = phases[phases.length - 1]
+      bar.style.width = '100%'
+    } else {
+      let phase = 0
+      const step = () => {
+        if (document.hidden) return
+        label.textContent = phases[phase]
+        bar.style.width = `${Math.round(((phase + 1) / phases.length) * 100)}%`
+        phase += 1
+        if (phase === phases.length) {
+          phase = 0
+          setTimeout(() => {
+            map.classList.remove('is-on')
+            bar.style.width = '0%'
+            setTimeout(() => map.classList.add('is-on'), 700)
+          }, 2600)
+        }
+      }
+      new IntersectionObserver((entries, obs) => {
+        if (!entries[0].isIntersecting) return
+        obs.disconnect()
+        map.classList.add('is-on')
+        step()
+        setInterval(step, 2800)
+      }).observe(map)
+    }
+  }
+
   // The beam across the pilot steps fills as the section scrolls by.
   const steps = document.querySelector('[data-steps]')
   const stepItems = steps ? [...steps.children] : []
