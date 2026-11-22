@@ -67,7 +67,9 @@
         ['in', 'Necesito precio de 40 cajas de agua de 600 ml para el lunes'],
         ['out', 'Con gusto. 40 cajas de agua 600 ml a $5.25 la caja: $210.00, con entrega el lunes en San Salvador.'],
         ['in', '¿Me lo manda en PDF?'],
-        ['out', 'Aquí está su cotización.\nCOT-0142.pdf\n\nVálida por 15 días. ¿Desea confirmar el pedido?'],
+        ['out', 'Aquí está su cotización:'],
+        ['doc', { file: 'Cotización COT-0142.pdf', meta: '1 página • 48 kB • pdf', client: 'Distribuidora El Cedro', items: '40 cajas agua 600 ml', total: '$210.00' }],
+        ['out', 'Válida por 15 días. ¿Desea confirmar el pedido?'],
       ],
     },
   }
@@ -86,7 +88,38 @@
     d.setMinutes(d.getMinutes() - 6 + i)
     return d.toLocaleTimeString('es-SV', { hour: 'numeric', minute: '2-digit' })
   }
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag)
+    if (cls) n.className = cls
+    if (text) n.textContent = text
+    return n
+  }
+  // A PDF arrives as a WhatsApp document card: first-page preview, icon, name and size.
+  const docBubble = (doc, i) => {
+    const li = el('li', 'msg msg--in msg--doc')
+    const page = el('div', 'doc__page')
+    page.setAttribute('aria-hidden', 'true')
+    page.append(
+      el('span', 'doc__brand', doc.client),
+      el('span', 'doc__heading', 'COTIZACIÓN'),
+      el('span', 'doc__rule'),
+      el('span', 'doc__row', doc.items),
+      el('span', 'doc__rule doc__rule--short'),
+      el('span', 'doc__total', `Total ${doc.total}`),
+    )
+    const row = el('div', 'doc__row-file')
+    const icon = el('span', 'doc__icon', 'PDF')
+    icon.setAttribute('aria-hidden', 'true')
+    const info = el('span', 'doc__info')
+    info.append(el('span', 'doc__name', doc.file), el('span', 'doc__meta', doc.meta))
+    row.append(icon, info)
+    const t = el('time', '', clock(i))
+    li.append(page, row, t)
+    li.setAttribute('aria-label', `Documento: ${doc.file}, ${doc.meta}`)
+    return li
+  }
   const bubble = (dir, text, i) => {
+    if (dir === 'doc') return docBubble(text, i)
     const li = document.createElement('li')
     // The visitor reads it as the customer: their messages on the right, the business on the left.
     li.className = `msg msg--${dir === 'in' ? 'out' : 'in'}`
@@ -110,14 +143,14 @@
     }
     for (const [i, [dir, text]] of scene.messages.entries()) {
       if (id !== run) return
-      if (dir === 'out') {
-        statusEl.textContent = 'escribiendo…'
+      if (dir === 'out' || dir === 'doc') {
+        statusEl.textContent = dir === 'doc' ? 'enviando documento…' : 'escribiendo…'
         const typing = document.createElement('li')
         typing.className = 'msg msg--in msg--typing'
         typing.setAttribute('aria-hidden', 'true')
         typing.innerHTML = '<span></span><span></span><span></span>'
         log.append(typing)
-        await wait(Math.min(1600, 500 + text.length * 12))
+        await wait(dir === 'doc' ? 1400 : Math.min(1600, 500 + text.length * 12))
         if (id !== run) return
         typing.remove()
         statusEl.textContent = 'en línea'
