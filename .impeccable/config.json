@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-11-22T22:42:26.294Z",
         "reason": "Claude verified in rendered screenshots: hero, process, proof and pilot rows use clamp()/var() padding the static scan cannot resolve (3 to 8rem inset)"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "index.css"
+        ],
+        "createdAt": "2026-11-22T22:58:28.803Z",
+        "reason": "Claude: the only repeating gradient is the blueprint grid on the custom-software system map (.map__board), a domain-appropriate plan motif, not decoration"
       }
     ]
   }
