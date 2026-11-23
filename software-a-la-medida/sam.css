@@ -96,3 +96,8 @@
   .build__ticks { font-size: 0.72rem; }
   .build__ticks li:nth-child(even) { display: none; }
 }
+
+/* Tablets and phones: the hero stacks, copy first, the build below */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+}
