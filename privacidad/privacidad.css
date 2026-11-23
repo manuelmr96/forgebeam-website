@@ -1,0 +1,18 @@
+/* Privacy policy: a reading page. Narrow measure, clear hierarchy, nothing that competes with the text. */
+.legal { max-width: 46rem; margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) var(--gutter) clamp(4rem, 8vw, 6rem); line-height: 1.6; }
+.legal__head { padding-bottom: 1.5rem; border-bottom: 1px solid var(--ash); }
+.legal__head h1 { font-size: var(--s3); line-height: 1.05; letter-spacing: -0.02em; }
+.legal__head p { margin-top: 0.6rem; color: var(--ink-soft); }
+
+.legal__toc { margin: 2rem 0 1rem; padding: 1.2rem 1.4rem; border-radius: 16px; background: var(--ground); }
+.legal__toc ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.3rem; }
+.legal__toc a { color: var(--charcoal); text-underline-offset: 3px; }
+
+.legal section { padding-top: 2.4rem; scroll-margin-top: 5rem; }
+.legal h2 { font-size: var(--s1); line-height: 1.2; }
+.legal h3 { margin-top: 1.4rem; font-size: 1.08rem; }
+.legal p, .legal ul { margin-top: 0.8rem; }
+.legal ul { padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+.legal a { color: var(--charcoal); text-underline-offset: 3px; }
+.legal a:hover { color: var(--olive); }
+.legal section:target h2 { background: var(--ash-soft); box-shadow: 0 0 0 0.4rem var(--ash-soft); border-radius: 4px; }

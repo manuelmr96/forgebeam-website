@@ -87,8 +87,10 @@
       box.showModal()
     })
   })
-  box.addEventListener('click', (e) => { if (e.target === box) box.close() })
-  box.addEventListener('close', () => opener && opener.focus())
+  if (box) {
+    box.addEventListener('click', (e) => { if (e.target === box) box.close() })
+    box.addEventListener('close', () => opener && opener.focus())
+  }
 
   // Calendly loads only when the booking section gets close, so the page opens fast.
   const widget = document.querySelector('[data-calendly]')
