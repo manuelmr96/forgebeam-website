@@ -55,7 +55,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 .nav.is-scrolled { box-shadow: 0 1px 0 rgb(44 45 42 / 0.12); }
 .nav__brand { display: inline-flex; }
-.nav__brand img { width: 9rem; }
+.nav__brand img { width: clamp(8.5rem, 11vw, 11rem); }
 .nav__links { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; font-size: 0.98rem; }
 .nav__links a { text-decoration: none; position: relative; }
 .nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -0.3rem; height: 2px; background: var(--charcoal); transform: scaleX(0); transform-origin: left; transition: transform 300ms var(--ease); }
