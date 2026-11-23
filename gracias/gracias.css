@@ -1,0 +1,94 @@
+/* Gracias: the booking is made; the page walks the visitor through confirming it. Shared pieces live in /landing/landing.css. */
+/* Hero: the same charcoal and beam as the funnels, with the booking pass on the right */
+.ty {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 5rem); align-items: center;
+  padding: clamp(3rem, 7vw, 6rem) var(--gutter) clamp(4rem, 8vw, 7rem);
+  color: var(--paper);
+  background-color: var(--charcoal);
+  background-image:
+    radial-gradient(ellipse 42% 55% at 76% 50%, rgb(203 203 187 / 0.2), rgb(203 203 187 / 0) 70%),
+    linear-gradient(118deg, rgb(203 203 187 / 0) 30%, rgb(203 203 187 / 0.09) 44%, rgb(203 203 187 / 0.02) 52%, rgb(203 203 187 / 0) 60%);
+}
+.ty > * { min-width: 0; }
+.ty__title { font-size: var(--s3); font-weight: 700; line-height: 1.02; letter-spacing: -0.03em; }
+.ty__title .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.ty__title .line > span { display: inline-block; transform: translateY(105%); animation: rise 900ms var(--ease) forwards; }
+.ty__title .line:nth-child(2) > span { animation-delay: 110ms; }
+.ty__lede, .ty__note, .ty__actions { opacity: 0; animation: appear 700ms var(--ease) forwards; }
+.ty__lede { margin-top: 1.5rem; max-width: 34rem; font-size: var(--s1); line-height: 1.45; color: var(--ash-soft); animation-delay: 320ms; }
+.ty__lede strong { color: var(--paper); }
+.ty__note { margin-top: 1rem; max-width: 32rem; color: var(--ash); animation-delay: 420ms; }
+.ty__actions { margin-top: 2rem; animation-delay: 520ms; }
+
+/* The WhatsApp button: the one action on this page */
+.btn--wa { gap: 0.6rem; background: var(--ash); color: var(--charcoal); border-color: var(--ash); box-shadow: 0 12px 26px -14px rgb(0 0 0 / 0.8); }
+.btn--wa:hover { background: var(--paper); border-color: var(--paper); }
+.btn--wa svg { width: 1.3rem; height: 1.3rem; flex: 0 0 auto; }
+
+/* The pass: a booking stub with a notched edge; the steps light up one after another */
+.pass {
+  position: relative; margin: 0; padding: clamp(1.4rem, 3vw, 2rem); border-radius: 22px; background: var(--paper); color: var(--charcoal);
+  box-shadow: 0 40px 70px -40px rgb(0 0 0 / 0.9);
+  opacity: 0; transform: translateY(24px) rotate(-1.5deg); animation: pass-in 900ms var(--ease) 250ms forwards;
+}
+.pass::before, .pass::after { content: ""; position: absolute; top: 6.1rem; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--charcoal); }
+.pass::before { left: -0.7rem; }
+.pass::after { right: -0.7rem; }
+@keyframes pass-in { to { opacity: 1; transform: rotate(-1.5deg); } }
+@keyframes pass-in-flat { to { opacity: 1; transform: none; } }
+
+.pass__head { display: flex; align-items: center; gap: 1rem; padding-bottom: 1.4rem; border-bottom: 2px dashed var(--ash); }
+.pass__seal { display: grid; place-items: center; flex: 0 0 auto; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--ok-bg); color: var(--ok); transform: scale(0.6); animation: seal 600ms var(--ease) 700ms forwards; }
+.pass__seal svg { width: 1.7rem; height: 1.7rem; }
+.pass__seal path { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw 500ms var(--ease) 950ms forwards; }
+@keyframes seal { to { transform: none; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.pass__kind { font-weight: 700; font-size: var(--s1); line-height: 1.15; }
+.pass__len { color: var(--ink-soft); }
+
+.pass__steps { position: relative; list-style: none; margin: 1.4rem 0 0; padding: 0; display: grid; gap: 1.1rem; }
+.pass__steps::before { content: ""; position: absolute; left: 0.55rem; top: 0.8rem; bottom: 0.8rem; width: 2px; background: var(--ash-soft); }
+.pass__steps li {
+  position: relative; display: grid; grid-template-columns: 1.1rem minmax(0, 1fr) auto; gap: 0.9rem; align-items: start;
+  opacity: 0; transform: translateX(-10px); animation: step-in 600ms var(--ease) forwards; animation-delay: calc(1100ms + var(--d) * 260ms);
+}
+@keyframes step-in { to { opacity: 1; transform: none; } }
+.pass__dot { position: relative; z-index: 1; width: 1.1rem; height: 1.1rem; margin-top: 0.2rem; border-radius: 50%; background: var(--paper); border: 2px solid var(--olive); }
+.pass__steps li:not(.is-done) .pass__dot::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--olive); opacity: 0; animation: ping 2.4s ease-out infinite; animation-delay: calc(1800ms + var(--d) * 400ms); }
+@keyframes ping { 0% { transform: scale(0.6); opacity: 0.7; } 70%, 100% { transform: scale(1.4); opacity: 0; } }
+.is-done .pass__dot { background: var(--ok); border-color: var(--ok); }
+.pass__steps b { display: block; line-height: 1.25; }
+.pass__steps div span { display: block; margin-top: 0.15rem; font-size: 0.92rem; color: var(--ink-soft); }
+.pass__steps em { font-style: normal; font-size: 0.82rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; background: var(--ash-soft); color: var(--ink-soft); white-space: nowrap; }
+.is-done em { background: var(--ok-bg); color: var(--ok); }
+
+/* Recommendations: six short cards */
+.tips { padding: clamp(4rem, 8vw, 7rem) var(--gutter); max-width: calc(var(--max) + 2 * var(--gutter)); margin: 0 auto; }
+.tips__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.tips__list li { padding: 1.4rem; border-radius: 18px; background: var(--ground); border: 1px solid var(--ash-soft); }
+.tips__icon { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 12px; background: var(--charcoal); color: var(--paper); }
+.tips__icon svg { width: 1.4rem; height: 1.4rem; }
+.tips__list h3 { margin-top: 1rem; font-size: 1.12rem; line-height: 1.25; }
+.tips__list p { margin-top: 0.4rem; color: var(--ink-soft); line-height: 1.45; }
+
+/* Closing band: one more chance to confirm */
+.close { padding: clamp(4rem, 8vw, 6rem) var(--gutter); text-align: center; background: var(--charcoal); color: var(--paper); }
+.close h2 { font-size: var(--s2); line-height: 1.1; }
+.close p { margin: 0.8rem auto 2rem; max-width: 32rem; color: var(--ash); font-size: var(--s1); }
+
+@media (max-width: 960px) {
+  .ty { grid-template-columns: 1fr; }
+  .tips__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .pass { animation-name: pass-in-flat; }
+  .tips__list { grid-template-columns: 1fr; }
+  .pass__steps li { grid-template-columns: 1.1rem minmax(0, 1fr); }
+  .pass__steps em { grid-column: 2; justify-self: start; }
+  .btn--wa { width: 100%; justify-content: center; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ty__title .line > span, .ty__lede, .ty__note, .ty__actions, .pass, .pass__seal, .pass__seal path, .pass__steps li { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0; }
+  .pass { transform: rotate(-1.5deg); }
+  .pass__dot::after { animation: none; }
+}

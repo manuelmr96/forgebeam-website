@@ -25,8 +25,10 @@
       cta.textContent = `Hablemos de esas ${n} cosas`
     }
   }
-  checks.forEach((c) => c.addEventListener('change', updateChecks))
-  updateChecks()
+  if (count && cta) {
+    checks.forEach((c) => c.addEventListener('change', updateChecks))
+    updateChecks()
+  }
 
   // Projects rail: buttons, drag with the mouse, and button states at the ends.
   const track = document.querySelector('[data-rail-track]')
@@ -106,5 +108,11 @@
     near.disconnect()
     loadCalendly()
   }, { rootMargin: '600px 0px' })
-  near.observe(widget)
+  if (widget) near.observe(widget)
+
+  // A finished booking takes the visitor to the thank-you page with the next steps.
+  window.addEventListener('message', (e) => {
+    if (e.origin !== 'https://calendly.com' || !e.data || e.data.event !== 'calendly.event_scheduled') return
+    setTimeout(() => { window.location.href = '/gracias/' }, 900)
+  })
 })()
