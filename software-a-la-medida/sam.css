@@ -60,18 +60,16 @@ a { color: inherit; text-underline-offset: 0.2em; }
 .nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -0.3rem; height: 2px; background: var(--charcoal); transform: scaleX(0); transform-origin: left; transition: transform 300ms var(--ease); }
 .nav__links a:hover::after { transform: scaleX(1); }
 
-/* Hero: charcoal blueprint, where software starts, with a forge glow behind the build */
+/* Hero: charcoal with a beam of light and a forge glow behind the build */
 .hero {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 5rem); align-items: center;
   padding: clamp(3rem, 7vw, 6rem) var(--gutter) clamp(4rem, 8vw, 7rem);
   color: var(--paper);
   background-color: var(--charcoal);
+  /* The beam: one diagonal shaft of light, plus the glow the build sits in. */
   background-image:
     radial-gradient(ellipse 45% 55% at 74% 52%, rgb(203 203 187 / 0.22), rgb(203 203 187 / 0) 70%),
-    linear-gradient(rgb(203 203 187 / 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(203 203 187 / 0.07) 1px, transparent 1px);
-  background-size: auto, 32px 32px, 32px 32px;
-  background-position: center, -1px -1px, -1px -1px;
+    linear-gradient(118deg, rgb(203 203 187 / 0) 30%, rgb(203 203 187 / 0.09) 44%, rgb(203 203 187 / 0.02) 52%, rgb(203 203 187 / 0) 60%);
 }
 .hero .btn--dark { background: var(--ash); color: var(--charcoal); border-color: var(--ash); box-shadow: 0 12px 26px -14px rgb(0 0 0 / 0.8); }
 .hero .btn--dark:hover { background: var(--paper); border-color: var(--paper); }
